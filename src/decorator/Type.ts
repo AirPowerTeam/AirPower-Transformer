@@ -6,6 +6,10 @@ import { DecoratorUtil } from '../util'
  * ### KEY
  */
 const KEY = '[Type]'
+
+/**
+ * ### 数组KEY
+ */
 const KEY_ARRAY = '[Array]'
 
 /**

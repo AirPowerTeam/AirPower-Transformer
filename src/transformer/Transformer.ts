@@ -39,7 +39,6 @@ export class Transformer {
    * @param Class 类
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
-
   static newInstance<T extends Transformer>(Class: ITransformerConstructor<T>, recoverBy?: IJson): T {
     const instance = new Class()
     if (recoverBy) {
@@ -55,21 +54,21 @@ export class Transformer {
    * @param Class 实体类
    */
   static parse<T extends Transformer>(
-        json: IJson = {},
-        Class: ITransformerConstructor<T>,
+    json: IJson = {},
+    Class: ITransformerConstructor<T>,
   ): T {
     const instance = new Class()
     const fieldList = Object.keys(instance)
     for (const field of fieldList) {
       const jsonKey = this.getJsonKey(Class, field)
       const fieldData = json[jsonKey]
-            ;(instance as IJson)[field] = fieldData
+        ; (instance as IJson)[field] = fieldData
 
       const toClass = getToClass(Class, field)
       if (toClass !== undefined) {
         // 标记了手动转换到类实例的自定义方法
         try {
-          ;(instance as IJson)[field] = toClass(json as IJson)
+          ; (instance as IJson)[field] = toClass(json as IJson)
         }
         catch (e) {
           console.warn('ToClass Function Error', e)
@@ -89,7 +88,7 @@ export class Transformer {
             }
           }
         }
-        ;(instance as IJson)[field] = fieldValueList
+        ; (instance as IJson)[field] = fieldValueList
         continue
       }
 
@@ -104,19 +103,19 @@ export class Transformer {
       }
       switch (FieldTypeClass.name) {
         case 'String':
-          ;(instance as IJson)[field] = fieldData.toString()
+          ; (instance as IJson)[field] = fieldData.toString()
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          ;(instance as IJson)[field] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
+          ; (instance as IJson)[field] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
           break
         case 'Boolean':
           // 强制转换为布尔型
-          ;(instance as IJson)[field] = !!fieldData
+          ; (instance as IJson)[field] = !!fieldData
           break
         default:
           // 是对象 需要递归转换
-          ;(instance as IJson)[field] = this.parse(fieldData, FieldTypeClass)
+          ; (instance as IJson)[field] = this.parse(fieldData, FieldTypeClass)
       }
     }
 
