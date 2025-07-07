@@ -30,7 +30,7 @@ export function getToJson<
   Class: ITransformerConstructor<T>,
   field: TransformerField<T>,
 ): (
-    instance: T
-  ) => unknown {
+  instance: T
+) => unknown {
   return DecoratorUtil.getFieldConfig(Class, field, KEY)
 }
