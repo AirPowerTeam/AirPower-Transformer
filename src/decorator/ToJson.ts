@@ -2,7 +2,7 @@ import type { ITransformerConstructor, Transformer } from '../transformer'
 import type { TransformerField } from '../type'
 import { DecoratorUtil } from '../util'
 
-const KEY = '[ToJson]'
+const KEY: string = '[ToJson]'
 
 /**
  * ### 自定义转换到 `JSON` 的方法
@@ -11,12 +11,12 @@ const KEY = '[ToJson]'
 export function ToJson<
   T extends Transformer,
 >(func: (
-  instance: T
-) => unknown) {
+  instance: T,
+) => unknown): (instance: T, key: keyof T) => void {
   return (
     instance: T,
     key: keyof T,
-  ) => DecoratorUtil.setFieldConfig(instance, key, KEY, func)
+  ): void => DecoratorUtil.setFieldConfig(instance, key, KEY, func)
 }
 
 /**
@@ -30,7 +30,7 @@ export function getToJson<
   Class: ITransformerConstructor<T>,
   field: TransformerField<T>,
 ): (
-  instance: T
+  instance: T,
 ) => unknown {
   return DecoratorUtil.getFieldConfig(Class, field, KEY)
 }

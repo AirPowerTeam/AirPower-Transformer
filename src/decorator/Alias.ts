@@ -5,7 +5,7 @@ import { DecoratorUtil } from '../util'
 /**
  * ### KEY
  */
-const KEY = '[Alias]'
+const KEY: string = '[Alias]'
 
 /**
  * ### 为属性配置别名
@@ -13,8 +13,8 @@ const KEY = '[Alias]'
  */
 export function Alias<
   T extends Transformer,
->(alias: string) {
-  return (instance: T, field: keyof T) => {
+>(alias: string): (instance: T, field: keyof T) => void {
+  return (instance: T, field: keyof T): void => {
     DecoratorUtil.setFieldConfig(instance, field, KEY, alias)
   }
 }

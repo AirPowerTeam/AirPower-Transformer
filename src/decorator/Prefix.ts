@@ -4,7 +4,7 @@ import { DecoratorUtil } from '../util'
 /**
  * ### KEY
  */
-const KEY = '[Prefix]'
+const KEY: string = '[Prefix]'
 
 /**
  * ### 标记类转换的前缀
@@ -14,10 +14,10 @@ export function Prefix<
   T extends Transformer,
 >(
   prefix: string,
-) {
+): (Class: ITransformerConstructor<T>) => void {
   return (
     Class: ITransformerConstructor<T>,
-  ) => DecoratorUtil.setClassConfig(Class, KEY, prefix)
+  ): void => DecoratorUtil.setClassConfig(Class, KEY, prefix)
 }
 
 /**

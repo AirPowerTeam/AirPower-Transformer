@@ -6,5 +6,8 @@ import type { Transformer } from './Transformer'
  * @author Hamm.cn
  */
 export interface ITransformerConstructor<T extends Transformer = Transformer> {
+  /**
+   * ### 创建一个实例
+   */
   new(): T
 }

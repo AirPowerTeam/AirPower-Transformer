@@ -20,7 +20,7 @@ export class DecoratorUtil {
     Class: ITransformerConstructor<T>,
     classConfigKey: string,
     classConfig: unknown,
-  ) {
+  ): void {
     this.setProperty(Class.prototype, classConfigKey, classConfig)
   }
 
@@ -76,7 +76,7 @@ export class DecoratorUtil {
     field: keyof T,
     fieldConfigKey: string,
     fieldConfig: unknown,
-  ) {
+  ): void {
     this.setProperty(instance, `${fieldConfigKey}[${field.toString()}]`, fieldConfig)
   }
 
@@ -133,7 +133,7 @@ export class DecoratorUtil {
     instance: T,
     propertyKey: string,
     value: unknown,
-  ) {
+  ): void {
     Reflect.defineProperty(instance, propertyKey, {
       enumerable: false,
       value,

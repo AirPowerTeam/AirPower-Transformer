@@ -5,12 +5,12 @@ import { DecoratorUtil } from '../util'
 /**
  * ### KEY
  */
-const KEY = '[Type]'
+const KEY: string = '[Type]'
 
 /**
  * ### 数组KEY
  */
-const KEY_ARRAY = '[Array]'
+const KEY_ARRAY: string = '[Array]'
 
 /**
  * ### 为属性配置强制类型
@@ -23,11 +23,11 @@ export function Type<
 >(
   type: ITransformerConstructor<TO>,
   array = false,
-) {
+): (instance: T, field: keyof T) => void {
   return (
     instance: T,
     field: keyof T,
-  ) => {
+  ): void => {
     DecoratorUtil.setFieldConfig(instance, field, KEY, type)
     if (array) {
       DecoratorUtil.setFieldConfig(instance, field, KEY_ARRAY, array)

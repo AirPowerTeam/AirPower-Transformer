@@ -5,18 +5,18 @@ import { DecoratorUtil } from '../util'
 /**
  * ### KEY
  */
-const KEY = '[IgnorePrefix]'
+const KEY: string = '[IgnorePrefix]'
 
 /**
  * ### 属性忽略前缀
  */
 export function IgnorePrefix<
   T extends Transformer,
->() {
+>(): (instance: T, field: keyof T) => void {
   return (
     instance: T,
     field: keyof T,
-  ) => DecoratorUtil.setFieldConfig(instance, field, KEY, true)
+  ): void => DecoratorUtil.setFieldConfig(instance, field, KEY, true)
 }
 
 /**

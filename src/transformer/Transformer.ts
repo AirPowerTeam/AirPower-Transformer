@@ -24,7 +24,7 @@ export class Transformer {
   static fromJsonArray<T extends Transformer>(this: ITransformerConstructor<T>, jsonArray: IJson | IJson[] = []): T[] {
     const instanceList: T[] = []
     if (Array.isArray(jsonArray)) {
-      for (let i = 0; i < jsonArray.length; i += 1) {
+      for (let i: number = 0; i < jsonArray.length; i += 1) {
         instanceList.push(Transformer.parse(jsonArray[i], this))
       }
     }
@@ -40,7 +40,7 @@ export class Transformer {
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
   static newInstance<T extends Transformer>(Class: ITransformerConstructor<T>, recoverBy?: IJson): T {
-    const instance = new Class()
+    const instance: T = new Class()
     if (recoverBy) {
       return instance.recoverBy(recoverBy)
     }
@@ -58,37 +58,37 @@ export class Transformer {
     Class: ITransformerConstructor<T>,
   ): T {
     const instance = new Class()
-    const fieldList = Object.keys(instance)
+    const fieldList: string[] = Object.keys(instance)
     for (const field of fieldList) {
-      const jsonKey = this.getJsonKey(Class, field)
+      const jsonKey: string = this.getJsonKey(Class, field)
       const fieldData = json[jsonKey]
-        ; (instance as IJson)[field] = fieldData
+      ;(instance as IJson)[field] = fieldData
 
-      const toClass = getToClass(Class, field)
+      const toClass: (json: IJson) => unknown = getToClass(Class, field)
       if (toClass !== undefined) {
         // 标记了手动转换到类实例的自定义方法
         try {
-          ; (instance as IJson)[field] = toClass(json as IJson)
+          ;(instance as IJson)[field] = toClass(json as IJson)
         }
         catch (e) {
           console.warn('ToClass Function Error', e)
           continue
         }
       }
-      const FieldTypeClass = getType(Class, field)
-      const isArray = getArray(Class, field)
+      const FieldTypeClass: ITransformerConstructor | undefined = getType(Class, field)
+      const isArray: boolean = getArray(Class, field)
       if (isArray) {
         // 是数组 循环转换
         const fieldValueList: IJson[] = []
         if (typeof fieldData === 'object' && Array.isArray(fieldData)) {
-          for (let i = 0; i < fieldData.length; i += 1) {
+          for (let i: number = 0; i < fieldData.length; i += 1) {
             // 如果标记了类 需要递归处理
             if (FieldTypeClass) {
               fieldValueList[i] = this.parse(fieldData[i], FieldTypeClass)
             }
           }
         }
-        ; (instance as IJson)[field] = fieldValueList
+        ;(instance as IJson)[field] = fieldValueList
         continue
       }
 
@@ -103,25 +103,25 @@ export class Transformer {
       }
       switch (FieldTypeClass.name) {
         case 'String':
-          ; (instance as IJson)[field] = fieldData.toString()
+          ;(instance as IJson)[field] = fieldData.toString()
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          ; (instance as IJson)[field] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
+          ;(instance as IJson)[field] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
           break
         case 'Boolean':
           // 强制转换为布尔型
-          ; (instance as IJson)[field] = !!fieldData
+          ;(instance as IJson)[field] = !!fieldData
           break
         default:
           // 是对象 需要递归转换
-          ; (instance as IJson)[field] = this.parse(fieldData, FieldTypeClass)
+          ;(instance as IJson)[field] = this.parse(fieldData, FieldTypeClass)
       }
     }
 
     // 最后删除无用的数据
     for (const fieldKey of fieldList) {
-      const alias = getAlias(Class, fieldKey) || fieldKey
+      const alias: string = getAlias(Class, fieldKey) || fieldKey
       if (alias === fieldKey) {
         continue
       }
@@ -140,17 +140,17 @@ export class Transformer {
   >(Class: ITransformerConstructor<T>,
     field: string,
   ): string {
-    const alias = getAlias(Class, field)
+    const alias: string = getAlias(Class, field)
     if (alias) {
       // 优先使用别名
       return alias
     }
-    const prefix = getPrefix(Class)
+    const prefix: string = getPrefix(Class)
     if (!prefix) {
       // 没有全局前缀
       return field
     }
-    const ignorePrefix = getIgnorePrefix(Class, field)
+    const ignorePrefix: boolean = getIgnorePrefix(Class, field)
     if (!ignorePrefix) {
       // 没有忽略前缀 则自动拼接前缀
       return prefix + field
@@ -163,7 +163,7 @@ export class Transformer {
    * ### 将当前实例复制到一个新实例上
    */
   copy(): this {
-    const instance = Object.create(Object.getPrototypeOf(this))
+    const instance: this = Object.create(Object.getPrototypeOf(this))
     return Object.assign(instance, this)
   }
 
@@ -173,7 +173,7 @@ export class Transformer {
    */
   expose(...fields: Array<(keyof this) | string>): this {
     const copy = this.copy() as IJson
-    const fieldList = Object.keys(copy)
+    const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
         copy[field] = undefined
@@ -188,7 +188,7 @@ export class Transformer {
    */
   exclude(...fields: Array<(keyof this) | string>): this {
     const copy = this.copy() as IJson
-    const fieldList = Object.keys(copy)
+    const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (fields.includes(field)) {
         copy[field] = undefined
@@ -213,7 +213,7 @@ export class Transformer {
   toJson(): IJson {
     const Class = this.constructor as ITransformerConstructor<this>
     // 读取类的所有属性
-    const fieldList = Object.keys(this)
+    const fieldList: string[] = Object.keys(this)
     const json: IJson = {}
     for (const field of fieldList) {
       const data = (this as IJson)[field]
@@ -221,9 +221,9 @@ export class Transformer {
         // 如果属性值为 null 或 undefined 则不转换到JSON
         continue
       }
-      const jsonKey = Transformer.getJsonKey(Class, field)
+      const jsonKey: string = Transformer.getJsonKey(Class, field)
       json[jsonKey] = data
-      const toJson = getToJson(Class, field)
+      const toJson: (instance: this) => unknown = getToJson(Class, field)
 
       if (toJson !== undefined) {
         // 如果标记了自定义转换JSON的方法
@@ -240,7 +240,7 @@ export class Transformer {
         if (Array.isArray(data)) {
           // 数组需要循环转换
           const jsonArray: IJson[] = []
-          for (let i = 0; i < data.length; i += 1) {
+          for (let i: number = 0; i < data.length; i += 1) {
             if (typeof data[i] === 'object') {
               jsonArray[i] = (data[i] as Transformer).toJson()
               continue
