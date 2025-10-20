@@ -1,7 +1,7 @@
 {
   "name": "@airpower/transformer",
   "type": "module",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "AirPower-Transformer 是一个基于 TypeScript 的数据转换器，提供了从 JSON 对象到 类实例 对象之间互相转换的系列装饰器和方法。",
   "author": {
     "name": "Hamm",
@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.0.0",
-    "@types/node": "^24.1.0",
-    "eslint": "^9.32.0",
+    "@types/node": "^24.9.0",
+    "eslint": "^9.38.0",
     "typescript": "^5.9.3",
     "vite": "7.1.11",
     "vite-plugin-dts": "^4.5.4"
