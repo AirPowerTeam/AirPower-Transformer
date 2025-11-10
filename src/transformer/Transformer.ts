@@ -1,4 +1,4 @@
-import type { IJson, ITransformerConstructor } from './index.ts'
+import type { IJson, ITransformerConstructor } from './index'
 import { getAlias, getArray, getIgnorePrefix, getPrefix, getToClass, getToJson, getType } from '../decorator'
 
 /**
