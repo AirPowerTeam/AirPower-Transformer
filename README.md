@@ -3,6 +3,16 @@
 </p>
 
 <p align="center">
+<a href="https://www.npmjs.com/@airpower/transformer">
+<img src="https://img.shields.io/npm/v/@airpower/transformer"/>
+</a>
+<a href="https://www.npmjs.com/@airpower/transformer">
+<img src="https://img.shields.io/npm/dm/@airpower/transformer"/>
+</a>
+</p>
+
+
+<p align="center">
 <a href="https://github.com/AirPowerTeam/AirPower-Transformer">Github</a> /
 <a href="https://gitee.com/air-power/AirPower-Transformer">Gitee</a> /
 <a href="https://www.npmjs.com/package/@airpower/transformer">NPM</a>
@@ -26,7 +36,7 @@ cnpm install @airpower/transformer
 # 📖 使用说明
 
 ```ts
-import { IgnorePrefix, Prefix, Transformer, Type } from '@airpower/transformer'
+import {IgnorePrefix, Prefix, Transformer, Type} from '@airpower/transformer'
 
 @Prefix('role____')
 class Role extends Transformer {
