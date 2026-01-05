@@ -35,27 +35,27 @@ cnpm install @airpower/transformer
 # 📖 使用说明
 
 ```ts
-import {IgnorePrefix, Prefix, Transformer, Type} from '@airpower/transformer'
+import { IgnorePrefix, Prefix, Transformer, Type } from '@airpower/transformer'
 
 @Prefix('role____')
 class Role extends Transformer {
-    id!: number
-    name!: string
+  id!: number
+  name!: string
 }
 
 @Prefix('user_')
 class User extends Transformer {
-    id!: number
-    name!: string
+  id!: number
+  name!: string
 
-    @IgnorePrefix()
-    age!: number
+  @IgnorePrefix()
+  age!: number
 
-    @Type(Role)
-    role!: Role
+  @Type(Role)
+  role!: Role
 
-    @Type(Role, true)
-    roleList: Role[] = []
+  @Type(Role, true)
+  roleList: Role[] = []
 }
 
 const user = new User()
