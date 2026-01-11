@@ -54,8 +54,8 @@ export class Transformer {
    * @param Class 实体类
    */
   static parse<T extends Transformer>(
-        json: IJson = {},
-        Class: ITransformerConstructor<T>,
+    json: IJson = {},
+    Class: ITransformerConstructor<T>,
   ): T {
     const instance = new Class()
     const fieldList: string[] = Object.keys(instance)
@@ -172,7 +172,7 @@ export class Transformer {
    * @param fields 属性列表
    */
   expose(...fields: Array<(keyof this) | string>): void {
-    const copy = this.copy() as IJson
+    const copy = this as IJson
     const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
@@ -186,7 +186,7 @@ export class Transformer {
    * @param fields 属性列表
    */
   exclude(...fields: Array<(keyof this) | string>): void {
-    const copy = this.copy() as IJson
+    const copy = this as IJson
     const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (fields.includes(field)) {
