@@ -42,7 +42,7 @@ export class Transformer {
   static newInstance<T extends Transformer>(Class: ITransformerConstructor<T>, recoverBy?: IJson): T {
     const instance: T = new Class()
     if (recoverBy) {
-      return instance.recoverBy(recoverBy)
+      instance.recoverBy(recoverBy)
     }
     return instance
   }
@@ -62,7 +62,7 @@ export class Transformer {
     for (const field of fieldList) {
       const jsonKey: string = this.getJsonKey(Class, field)
       const fieldData = json[jsonKey]
-      ;(instance as IJson)[field] = fieldData
+            ;(instance as IJson)[field] = fieldData
 
       const toClass: (json: IJson) => unknown = getToClass(Class, field)
       if (toClass !== undefined) {
@@ -171,30 +171,28 @@ export class Transformer {
    * ### 暴露部分类的属性
    * @param fields 属性列表
    */
-  expose(...fields: Array<(keyof this) | string>): this {
-    const copy = this.copy() as IJson
+  expose(...fields: Array<(keyof this) | string>): void {
+    const copy = this as IJson
     const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
         copy[field] = undefined
       }
     }
-    return copy as this
   }
 
   /**
    * ### 排除部分类的属性
    * @param fields 属性列表
    */
-  exclude(...fields: Array<(keyof this) | string>): this {
-    const copy = this.copy() as IJson
+  exclude(...fields: Array<(keyof this) | string>): void {
+    const copy = this as IJson
     const fieldList: string[] = Object.keys(copy)
     for (const field of fieldList) {
       if (fields.includes(field)) {
         copy[field] = undefined
       }
     }
-    return copy as this
   }
 
   /**
@@ -202,8 +200,8 @@ export class Transformer {
    * 相同属性才会覆盖上去
    * @param obj 覆盖对象
    */
-  recoverBy(obj: IJson | Transformer): this {
-    return Object.assign(this, obj)
+  recoverBy(obj: IJson | Transformer): void {
+    Object.assign(this, obj)
   }
 
   /**
