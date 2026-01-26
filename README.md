@@ -48,7 +48,7 @@ pnpm add @airpower/transformer
 ### 基础用法
 
 ```typescript
-import {Transformer} from '@airpower/transformer'
+import { Transformer } from '@airpower/transformer'
 
 class User extends Transformer {
   id!: number
@@ -57,7 +57,7 @@ class User extends Transformer {
 }
 
 // 从 JSON 创建实例
-const userData = {id: 1, name: 'John', email: 'john@example.com'}
+const userData = { id: 1, name: 'John', email: 'john@example.com' }
 const user = User.fromJson(userData)
 
 // 将实例转换为 JSON
@@ -71,7 +71,7 @@ const json = user.toJson()
 为类的所有字段设置统一前缀：
 
 ```typescript
-import {Prefix, Transformer} from '@airpower/transformer'
+import { Prefix, Transformer } from '@airpower/transformer'
 
 @Prefix('user_')
 class User extends Transformer {
@@ -80,7 +80,7 @@ class User extends Transformer {
   email!: string // JSON 中对应 'user_email'
 }
 
-const user = User.fromJson({user_id: 1, user_name: 'John', user_email: 'john@example.com'})
+const user = User.fromJson({ user_id: 1, user_name: 'John', user_email: 'john@example.com' })
 console.log(user.id) // 输出: 1
 console.log(user.name) // 输出: 'John'
 ```
@@ -90,7 +90,7 @@ console.log(user.name) // 输出: 'John'
 为字段设置别名：
 
 ```typescript
-import {Alias, Transformer} from '@airpower/transformer'
+import { Alias, Transformer } from '@airpower/transformer'
 
 class User extends Transformer {
   id!: number
@@ -102,7 +102,7 @@ class User extends Transformer {
   email!: string // JSON 中对应 'user_email'
 }
 
-const user = User.fromJson({id: 1, full_name: 'John Doe', user_email: 'john@example.com'})
+const user = User.fromJson({ id: 1, full_name: 'John Doe', user_email: 'john@example.com' })
 console.log(user.name) // 输出: 'John Doe'
 console.log(user.email) // 输出: 'john@example.com'
 ```
@@ -112,7 +112,7 @@ console.log(user.email) // 输出: 'john@example.com'
 让特定字段忽略类级别的前缀：
 
 ```typescript
-import {IgnorePrefix, Prefix, Transformer} from '@airpower/transformer'
+import { IgnorePrefix, Prefix, Transformer } from '@airpower/transformer'
 
 @Prefix('api_')
 class User extends Transformer {
@@ -122,7 +122,7 @@ class User extends Transformer {
   temporaryId!: string // JSON 中对应 'temporaryId'，不带前缀
 }
 
-const user = User.fromJson({api_id: 1, temporaryId: 'temp123'})
+const user = User.fromJson({ api_id: 1, temporaryId: 'temp123' })
 console.log(user.id) // 输出: 1
 console.log(user.temporaryId) // 输出: 'temp123'
 ```
@@ -132,7 +132,7 @@ console.log(user.temporaryId) // 输出: 'temp123'
 指定字段的类型，支持嵌套对象和数组：
 
 ```typescript
-import {Transformer, Type} from '@airpower/transformer'
+import { Transformer, Type } from '@airpower/transformer'
 
 class Address extends Transformer {
   street!: string
@@ -154,10 +154,10 @@ class User extends Transformer {
 const userData = {
   id: 1,
   name: 'John',
-  address: {street: '123 Main St', city: 'New York', zipCode: '10001'},
+  address: { street: '123 Main St', city: 'New York', zipCode: '10001' },
   addresses: [
-    {street: '456 Oak Ave', city: 'Boston', zipCode: '02101'},
-    {street: '789 Pine Rd', city: 'Chicago', zipCode: '60601'}
+    { street: '456 Oak Ave', city: 'Boston', zipCode: '02101' },
+    { street: '789 Pine Rd', city: 'Chicago', zipCode: '60601' }
   ]
 }
 
@@ -172,7 +172,7 @@ console.log(user.addresses[0].city) // 输出: 'Boston'
 自定义转换逻辑：
 
 ```typescript
-import {ToClass, ToJson, Transformer} from '@airpower/transformer'
+import { ToClass, ToJson, Transformer } from '@airpower/transformer'
 
 class User extends Transformer {
   id!: number
@@ -198,7 +198,7 @@ console.log(user.birthday) // 输出: Date 对象 (2021-01-01)
 ### 完整示例
 
 ```typescript
-import {Alias, IgnorePrefix, Prefix, Transformer, Type} from '@airpower/transformer'
+import { Alias, IgnorePrefix, Prefix, Transformer, Type } from '@airpower/transformer'
 
 // 定义嵌套类
 @Prefix('addr_')
