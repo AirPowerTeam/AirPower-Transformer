@@ -170,5 +170,5 @@ npm run build  # 运行 ESLint 检查、TypeScript 编译和 Vite 打包
 - 更新 `package.json` 中的版本号
 - 使用 `yarn build` 构建项目
 - 使用 `npm publish` 发布包
-- 提交本地变更的代码到 Github
+- 使用 `git add/commit/push` 将本地的变更推送到 Github
 - 创建 `git tag` 并推送到Github
