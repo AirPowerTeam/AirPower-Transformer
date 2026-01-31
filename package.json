@@ -1,7 +1,7 @@
 {
   "name": "@airpower/transformer",
   "type": "module",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "AirPower-Transformer 是一个基于 TypeScript 的数据转换器，提供了从 JSON 对象到 类实例 对象之间互相转换的系列装饰器和方法。",
   "author": {
     "name": "Hamm",
