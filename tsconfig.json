@@ -23,7 +23,6 @@
     "declarationDir": "types",
     "noEmit": true,
     "outDir": "dist",
-    "esModuleInterop": false,
     "isolatedModules": true,
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
